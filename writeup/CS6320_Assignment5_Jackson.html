@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CS6320_Assignment5_Jackson</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<h1 id="cs-6320-assignment-5">CS 6320 — Assignment 5</h1>
+<p><strong>Name:</strong> Brandon Jackson<br />
+<strong>Semester:</strong> Summer 2026<br />
+<strong>Course:</strong> Deep Learning (CS 6320)</p>
+<hr />
+<h2
+id="part-a-model-evaluation-and-generalization-evidence-bgg-portfolio">Part
+A — Model evaluation and generalization evidence (BGG portfolio)</h2>
+<p><strong>Work type:</strong> Portfolio baseline evaluation (not
+approved practice work).</p>
+<h3 id="task-and-model-summary">Task and model summary</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Item</th>
+<th>Lock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dataset</td>
+<td>Kaggle <em>Board Games Database from BoardGameGeek</em>
+(<code>games.csv</code>, 21,925 rated games)</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>One row per game (<code>BGGId</code>)</td>
+</tr>
+<tr>
+<td>Target</td>
+<td><code>high_rating = 1</code> if <code>AvgRating &gt;= 7.0</code>,
+else <code>0</code> (~26.9% positive)</td>
+</tr>
+<tr>
+<td>Stakeholder use</td>
+<td>Pre-release / preorder stocking screen for a hobby retailer</td>
+</tr>
+<tr>
+<td>Model evaluated</td>
+<td><strong>Logistic regression</strong> (<code>SGDClassifier</code>,
+log-loss, L2) — Assignment 4 baseline stage</td>
+</tr>
+<tr>
+<td>Primary intervention</td>
+<td><strong>Balanced class weights</strong> via
+<code>sample_weight</code> (addresses minority-class recall)</td>
+</tr>
+<tr>
+<td>Seed</td>
+<td><code>6320</code></td>
+</tr>
+<tr>
+<td>Implementation</td>
+<td><code>6320-hw5/scripts/</code>; end-to-end:
+<code>bash run_local.sh</code></td>
+</tr>
+</tbody>
+</table>
+<p>Features follow the locked Assignment 4 charter: numeric design
+metadata, <code>GameWeight</code>, category flags, simple text-length
+features, parsed <code>goodplayers_count</code>. Hard-excluded rating
+fields, rank columns, popularity counts, and mis-timed demand fields
+(<code>NumOwned</code>, <code>NumWant</code>, <code>NumWish</code>).</p>
+<h3 id="split-strategy-and-audit-evidence">Split strategy and audit
+evidence</h3>
+<p><strong>Strategy:</strong> stratified random 70% / 15% / 15% hold-out
+by game row (each row is one game — no duplicate entities across
+splits). Seed <code>6320</code>. Model selection uses
+<strong>validation</strong>; <strong>test</strong> is held out for a
+final check only.</p>
+<p><strong>Why appropriate:</strong> Matches the charter’s
+hold-out-by-game plan for a static snapshot where each game appears
+once. Stratification preserves ~27% positive rate in each split.</p>
+<p><strong>Limitation:</strong> Random stratified split does
+<strong>not</strong> simulate the charter’s pre-release prediction
+moment; a <strong>time-based</strong> split by
+<code>YearPublished</code> remains a Week 5+ follow-up.</p>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th style="text-align: right;">Rows</th>
+<th style="text-align: right;">% of data</th>
+<th style="text-align: right;">Positive rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>train</td>
+<td style="text-align: right;">15,347</td>
+<td style="text-align: right;">70.0%</td>
+<td style="text-align: right;">26.9%</td>
+</tr>
+<tr>
+<td>validation</td>
+<td style="text-align: right;">3,289</td>
+<td style="text-align: right;">15.0%</td>
+<td style="text-align: right;">27.7%</td>
+</tr>
+<tr>
+<td>test</td>
+<td style="text-align: right;">3,289</td>
+<td style="text-align: right;">15.0%</td>
+<td style="text-align: right;">26.2%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Plausibility check:</strong> positive rates are stable across
+splits (within ~1.5 pp), so the stratified partition did not collapse
+class balance. Numeric metadata distributions by split are saved in
+<code>prep/bgg_split/split_audit/split_numeric_distributions.csv</code>
+(e.g. <code>YearPublished</code>, <code>GameWeight</code> means are
+comparable across train/validation/test).</p>
+<p><strong>Run evidence:</strong>
+<code>python3 scripts/prepare_bgg_data.py</code>;
+<code>python3 scripts/run_split_audit.py</code>; artifacts under
+<code>prep/bgg_split/</code>.</p>
+<h3 id="aggregate-metrics">Aggregate metrics</h3>
+<p><strong>Majority-class baseline</strong> (always predict not-high):
+validation accuracy <strong>72.3%</strong>, F1 <strong>0.0</strong>,
+recall <strong>0.0</strong> on <code>high_rating=1</code>.</p>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr>
+<th>Run</th>
+<th>Split</th>
+<th style="text-align: right;">Accuracy</th>
+<th style="text-align: right;">Precision (pos)</th>
+<th style="text-align: right;">Recall (pos)</th>
+<th style="text-align: right;">F1 (pos)</th>
+<th style="text-align: right;">ROC-AUC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline (unweighted)</td>
+<td>validation</td>
+<td style="text-align: right;">0.790</td>
+<td style="text-align: right;">0.687</td>
+<td style="text-align: right;">0.442</td>
+<td style="text-align: right;">0.538</td>
+<td style="text-align: right;">0.814</td>
+</tr>
+<tr>
+<td>Baseline (unweighted)</td>
+<td>test</td>
+<td style="text-align: right;">0.803</td>
+<td style="text-align: right;">0.678</td>
+<td style="text-align: right;">0.473</td>
+<td style="text-align: right;">0.557</td>
+<td style="text-align: right;">0.831</td>
+</tr>
+<tr>
+<td>Intervention (balanced weights)</td>
+<td>validation</td>
+<td style="text-align: right;">0.748</td>
+<td style="text-align: right;">0.534</td>
+<td style="text-align: right;"><strong>0.714</strong></td>
+<td style="text-align: right;"><strong>0.611</strong></td>
+<td style="text-align: right;">0.815</td>
+</tr>
+<tr>
+<td>Intervention (balanced weights)</td>
+<td>test</td>
+<td style="text-align: right;">0.762</td>
+<td style="text-align: right;">0.532</td>
+<td style="text-align: right;"><strong>0.753</strong></td>
+<td style="text-align: right;"><strong>0.624</strong></td>
+<td style="text-align: right;">0.832</td>
+</tr>
+</tbody>
+</table>
+<p>The baseline beats the majority class on F1 and ROC-AUC but
+<strong>under-recalls</strong> high-rated games. The intervention trades
+some accuracy/precision for much better minority recall while holding
+ROC-AUC flat.</p>
+<h3 id="learning-curves-train-vs-validation">Learning curves (train vs
+validation)</h3>
+<figure>
+<img src="training_loss_curves.png" alt="Training loss" />
+<figcaption aria-hidden="true">Training loss</figcaption>
+</figure>
+<figure>
+<img src="validation_loss_curves.png" alt="Validation loss" />
+<figcaption aria-hidden="true">Validation loss</figcaption>
+</figure>
+<figure>
+<img src="validation_f1_curves.png" alt="Validation F1" />
+<figcaption aria-hidden="true">Validation F1</figcaption>
+</figure>
+<figure>
+<img src="validation_recall_curves.png" alt="Validation recall" />
+<figcaption aria-hidden="true">Validation recall</figcaption>
+</figure>
+<p><em>Figures 1–4: Baseline vs balanced-weight intervention; 40 SGD
+epochs, learning rate 0.001.</em></p>
+<p><strong>Generalization diagnosis:</strong> Train and validation
+<strong>loss/F1 track closely</strong> for both runs (no large train–val
+divergence). Evidence suggests <strong>plausible generalization at this
+capacity</strong>, not severe overfitting. The main failure mode is
+<strong>class imbalance handling</strong>, not runaway train fit:
+baseline validation recall stays ~0.44 while accuracy looks
+acceptable.</p>
+<h3 id="generalization-intervention">Generalization intervention</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Report field</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Observed issue</strong></td>
+<td>Unweighted baseline favors the majority class — high
+<strong>accuracy (79%)</strong> but <strong>low recall (44%)</strong> on
+<code>high_rating=1</code>, poor retailer utility for “don’t miss
+hits.”</td>
+</tr>
+<tr>
+<td><strong>Expected test</strong></td>
+<td>Balanced class weights should raise recall/F1 on the minority class
+without requiring a new architecture.</td>
+</tr>
+<tr>
+<td><strong>Intervention</strong></td>
+<td>Same features and L2 (<code>alpha=1e-4</code>); apply
+<code>compute_class_weight('balanced')</code> through
+<code>sample_weight</code> on training only.</td>
+</tr>
+<tr>
+<td><strong>Before (validation)</strong></td>
+<td>F1 <strong>0.538</strong>, recall <strong>0.442</strong>, precision
+<strong>0.687</strong></td>
+</tr>
+<tr>
+<td><strong>After (validation)</strong></td>
+<td>F1 <strong>0.611</strong>, recall <strong>0.714</strong>, precision
+<strong>0.534</strong></td>
+</tr>
+<tr>
+<td><strong>What changed</strong></td>
+<td>Better minority detection; lower precision and accuracy — expected
+trade-off for imbalance. ROC-AUC unchanged (~0.815).</td>
+</tr>
+<tr>
+<td><strong>Limitation</strong></td>
+<td>Single linear baseline; no time-split; calibration still poor
+(below).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="error-and-slice-analysis-intervention-model-validation">Error
+and slice analysis (intervention model, validation)</h3>
+<p><strong>Confusion matrix (validation):</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align: right;">Pred 0</th>
+<th style="text-align: right;">Pred 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>True 0</strong></td>
+<td style="text-align: right;">1,811</td>
+<td style="text-align: right;">568</td>
+</tr>
+<tr>
+<td><strong>True 1</strong></td>
+<td style="text-align: right;">260</td>
+<td style="text-align: right;">650</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Slice — <code>GameWeight</code> (complexity):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Bin</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">Positive rate</th>
+<th style="text-align: right;">F1 (high_rating)</th>
+<th style="text-align: right;">Recall (high_rating)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>light (&lt;2)</td>
+<td style="text-align: right;">1,698</td>
+<td style="text-align: right;">11.8%</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.28</td>
+</tr>
+<tr>
+<td>medium</td>
+<td style="text-align: right;">1,134</td>
+<td style="text-align: right;">36.2%</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.73</td>
+</tr>
+<tr>
+<td>heavy</td>
+<td style="text-align: right;">392</td>
+<td style="text-align: right;">63.5%</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">0.98</td>
+</tr>
+<tr>
+<td>very heavy</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">78.5%</td>
+<td style="text-align: right;">0.88</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation:</strong> The model works best on heavier
+games where the positive class is more common; <strong>light
+games</strong> remain hard — consistent with weak metadata signal and
+representativeness limits in the charter.</p>
+<p>Year-level slices
+(<code>outputs/error_analysis/slice_by_year.csv</code>) show small-n
+bins; several older/low-count years have unstable precision.
+High-confidence errors (<code>confidence &gt;= 0.8</code> and wrong):
+saved in
+<code>outputs/error_analysis/high_confidence_errors.csv</code>.</p>
+<h3 id="calibration">Calibration</h3>
+<p>Calibration is <strong>meaningful</strong> for this binary screening
+task (probabilities drive stock/skip thresholds).</p>
+<p>Decile reliability bins
+(<code>outputs/error_analysis/calibration_bins.csv</code>) show
+<strong>systematic overconfidence</strong>: predicted probabilities
+exceed observed positive rates in most bins (e.g. mean predicted
+<strong>0.52</strong> vs observed <strong>0.30</strong> in the 0.47–0.58
+bin; gap up to ~0.22 in mid bins). The balanced-weight model improves
+recall but <strong>does not yet produce trustworthy probability
+estimates</strong> for deployment thresholds.</p>
+<h3 id="run-evidence-local">Run evidence (local)</h3>
+<ul>
+<li>Command: <code>bash run_local.sh</code> from repo root</li>
+<li>Data: <code>6320-hw2/part_b/data/bgg/games.csv</code> (or
+<code>GAMES_CSV</code>)</li>
+<li>Artifacts: <code>prep/bgg_split/manifest.json</code>,
+<code>outputs/*/history.csv</code>, <code>outputs/plots/*.png</code>,
+<code>outputs/error_analysis/*.csv</code></li>
+<li>Compute: local CPU only (~seconds); CHPC not required for this
+dataset/model size</li>
+</ul>
+<hr />
+<h2 id="part-b-portfolio-audit-update-and-reliability-judgment">Part B —
+Portfolio audit update and reliability judgment</h2>
+<h3 id="audit-risk-trace-assignment-4-week-5-evidence">Audit risk trace
+(Assignment 4 → Week 5 evidence)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>A4 risk / success criterion</th>
+<th>Week 5 evidence</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Class imbalance (~27% positive)</strong> — report F1/recall,
+not accuracy alone</td>
+<td>Majority F1=0; baseline acc 79% but recall 44%; intervention recall
+71% val / 75% test</td>
+<td><strong>Confirmed</strong> — imbalance distorts accuracy; weighting
+helps recall</td>
+</tr>
+<tr>
+<td><strong>Leakage / feature timing</strong> — exclude rating &amp;
+mis-timed demand fields</td>
+<td>Manifest lists exclusions; model uses design metadata only</td>
+<td><strong>Partially tested</strong> — exclusions enforced in prep;
+time-stamp audit not yet done</td>
+</tr>
+<tr>
+<td><strong>Representativeness</strong> — BGG enthusiast bias; not
+universal quality</td>
+<td>Slices show weak performance on <strong>light</strong> games and
+sparse year bins</td>
+<td><strong>Confirmed risk in practice</strong></td>
+</tr>
+<tr>
+<td><strong>Success: classical baseline beats majority</strong></td>
+<td>ROC-AUC ~0.81 vs 0.5; F1 &gt; 0 vs 0</td>
+<td><strong>Met</strong></td>
+</tr>
+<tr>
+<td><strong>Honest hold-out evaluation</strong></td>
+<td>Stratified split audit; test metrics reported once</td>
+<td><strong>Met for random split</strong>; time-split still open</td>
+</tr>
+<tr>
+<td><strong>Responsible use</strong> — screening aid, human review</td>
+<td>Calibration gaps + slice weakness argue against automated
+decisions</td>
+<td><strong>Reinforced</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="reliability-judgment-bounded-current-stage">Reliability judgment
+(bounded, current stage)</h3>
+<p><strong>Supported now:</strong> A leakage-aware <strong>tabular
+baseline</strong> can rank games better than chance (ROC-AUC ~0.83 test)
+and better than always predicting “not high.” Balanced weighting
+improves <strong>minority recall</strong> for a “don’t miss hits”
+retailer story. Train/validation curves do not show runaway overfitting
+at this model size.</p>
+<p><strong>Not supported:</strong> Deployment-ready stocking decisions.
+Probability outputs are <strong>miscalibrated</strong>;
+<strong>light-weight</strong> games are poorly served; random split does
+not prove pre-release generalization; no mechanics join beyond category
+flags yet; no human-in-the-loop workflow tested.</p>
+<p><strong>Recommendation:</strong> <strong>Use for internal screening
+only</strong> — flag titles for human review, not auto stock/skip.
+Prefer intervention weights when recall matters more than precision; do
+not trust raw probability thresholds until recalibration.</p>
+<h3 id="evidence-still-needed-before-client-facing-use">Evidence still
+needed before client-facing use</h3>
+<ul>
+<li>Time-based split / recent-release cohort evaluation (charter
+follow-up)</li>
+<li>Feature-timing audit on any newly added fields</li>
+<li>Recalibration (Platt scaling or isotonic) on validation, checked on
+test</li>
+<li>Gradient-boosted trees (A4 initial candidate) vs logistic — next
+staged model</li>
+<li>Error review with publisher/franchise grouping to catch memorization
+via title text proxies</li>
+</ul>
+<h3 id="next-staged-model-improvement-from-a4-plan">Next staged model
+improvement (from A4 plan)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Next step</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Baseline</strong></td>
+<td>Done — majority + logistic with imbalance diagnosis</td>
+<td>Establishes floor and metric story</td>
+</tr>
+<tr>
+<td><strong>Initial candidate</strong></td>
+<td><strong>Gradient-boosted trees</strong> on same feature
+manifest</td>
+<td>Capture nonlinear metadata/category interactions</td>
+</tr>
+<tr>
+<td><strong>Revised alternative</strong></td>
+<td>Recalibrated probabilities or simpler logistic if trees overfit</td>
+<td>Address calibration gap</td>
+</tr>
+<tr>
+<td><strong>Final evidence</strong></td>
+<td>Time-split + stakeholder cost matrix (false stock vs false
+skip)</td>
+<td>Tie metrics to retailer decision</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ai-disclosure">AI disclosure</h2>
+<p><strong>Tool:</strong> Cursor (Composer)</p>
+<p><strong>AI-assisted:</strong> Repo scaffolding, sklearn
+training/evaluation scripts, Week 5 example patterns, first-draft
+writeup prose.</p>
+<p><strong>My work:</strong> Locked portfolio path (no TLC practice);
+chose balanced-weight intervention from baseline recall failure; ran and
+verified all local metrics, slices, and calibration tables against saved
+outputs.</p>
+<p><strong>Certification:</strong> I certify that all work not described
+above is my own, and I verified AI-generated content for accuracy.</p>
+</body>
+</html>

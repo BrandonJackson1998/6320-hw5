@@ -1,0 +1,18 @@
+{
+  "primary_baseline": "baseline_unweighted_l2",
+  "primary_intervention": "intervention_balanced_class_weight",
+  "runs": [
+    {
+      "name": "baseline_unweighted_l2",
+      "description": "Baseline logistic regression (SGD log-loss) with default L2 strength and no class weighting.",
+      "alpha": 0.0001,
+      "class_weight": null
+    },
+    {
+      "name": "intervention_balanced_class_weight",
+      "description": "Generalization intervention: class_weight=balanced to address minority-class recall on high_rating.",
+      "alpha": 0.0001,
+      "class_weight": "balanced"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+BGGId,Name,YearPublished,GameWeight,MinPlayers,MaxPlayers,true_label,predicted_label,confidence,correct
+59429,Dark Darker Darkest,2013,3.2794,2,5,0,1,0.9827542799044688,False
+257599,Invasions: Volume 1 – 350-650 AD,2020,4.2727,2,4,0,1,0.9812647659568275,False
+251137,Vietnam: Rumor of War,2019,4.25,1,4,0,1,0.9739582927465908,False
+348955,Rock Paper Scissors: Deluxe Edition,2021,4.5625,1,3,0,1,0.9683452945731136,False
+22038,Warrior Knights,2006,3.521,2,6,0,1,0.9661825145816264,False
+205346,Beer Empire,2016,3.2,2,4,0,1,0.96553632939548,False
+160669,Town Center (Fourth Edition),2014,3.2333,1,4,0,1,0.963294924510697,False
+159501,Hull Breach: Corporate Wars,2014,2.5714,2,8,0,1,0.96220003040894,False
+4192,Warhammer: The Mass Combat Fantasy Roleplaying Game (1st Edition),1983,3.6992,2,4,0,1,0.9546060846506408,False
+10093,Axis & Allies,2004,3.2137,2,5,0,1,0.9545095039126268,False
+13884,The Scepter of Zavandor,2004,3.51,2,6,0,1,0.9534791170993312,False
+5475,After the Holocaust: The Nuclear Devastation of America – Recovery and Reunification,1977,4.0303,3,5,0,1,0.9459700069819896,False
+134157,Guilds of London,2016,3.0333,1,4,0,1,0.9407361891121032,False
+113294,Escape: The Curse of the Temple,2012,1.4823,1,5,0,1,0.9400723025860844,False
+181209,Mistfall: Kickstarter Edition,2015,4.5,1,4,0,1,0.9386322519244672,False
+230267,Dice Settlers,2018,2.9394,1,4,0,1,0.9378101938039785,False
+152053,Lagoon: Land of Druids,2014,2.7273,1,4,0,1,0.9328222031107662,False
+17223,World of Warcraft: The Boardgame,2005,3.5082,2,6,0,1,0.9315084097337704,False
+10,Elfenland,1998,2.1578,2,6,0,1,0.931499107264942,False
+230424,Crisis at Steamfall,2019,3.8571,1,4,0,1,0.9310552183072294,False
+141636,Fairytale Games: The Battle Royale,2014,3.6,1,10,0,1,0.9287433442426762,False
+106662,Power Grid: The First Sparks,2011,2.7043,2,6,0,1,0.9262982795204228,False
+99791,Road to Enlightenment,2012,3.1538,2,7,0,1,0.9229319034953456,False
+178054,A Study in Emerald (Second Edition),2015,2.9417,2,5,0,1,0.9212299222439342,False
+62220,Urban Sprawl,2011,3.3112,2,4,0,1,0.9178223363496508,False
