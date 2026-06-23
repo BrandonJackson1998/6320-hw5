@@ -1,0 +1,40 @@
+{
+  "experiment": "baseline_unweighted_l2",
+  "description": "Baseline logistic regression (SGD log-loss) with default L2 strength and no class weighting.",
+  "model": "SGDClassifier(log_loss, l2)",
+  "alpha": 0.0001,
+  "class_weight": null,
+  "epochs": 40,
+  "learning_rate": 0.001,
+  "seed": 6320,
+  "majority_baseline_validation": {
+    "accuracy": 0.7233201581027668,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "roc_auc": 0.5
+  },
+  "majority_baseline_test": {
+    "accuracy": 0.7379142596533901,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "roc_auc": 0.5
+  },
+  "final_epoch_metrics": {
+    "epoch": 40.0,
+    "train_loss": 0.4434802142198106,
+    "validation_loss": 0.4543416033324599,
+    "train_f1": 0.5509761388286334,
+    "validation_f1": 0.5377926421404682,
+    "train_roc_auc": 0.8174414117974907,
+    "validation_roc_auc": 0.8136528876755862,
+    "train_accuracy": 0.7976803284029452,
+    "validation_accuracy": 0.7899057464274856,
+    "train_precision": 0.6823065902578797,
+    "validation_precision": 0.6871794871794872,
+    "train_recall": 0.4620422022798933,
+    "validation_recall": 0.44175824175824174
+  },
+  "history_csv": "/Users/brandon.jackson/Documents/GitHub/6320-hw5/outputs/baseline_unweighted_l2/baseline_unweighted_l2_history.csv"
+}
