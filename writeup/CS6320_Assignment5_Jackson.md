@@ -58,17 +58,23 @@ The baseline beats the majority class on F1 and ROC-AUC but **under-recalls** hi
 
 ### Learning curves (train vs validation)
 
-![Training loss](training_loss_curves.png)
+![Validation log loss — baseline vs intervention](training_loss_curves.png)
 
-![Validation loss](validation_loss_curves.png)
+![Validation F1 — baseline vs intervention](validation_f1_curves.png)
 
-![Validation F1](validation_f1_curves.png)
+![Validation recall — baseline vs intervention](validation_recall_curves.png)
 
-![Validation recall](validation_recall_curves.png)
+![Validation ROC-AUC — baseline vs intervention](validation_roc_auc_curves.png)
 
-*Figures 1–4: Baseline vs balanced-weight intervention; 40 SGD epochs, learning rate 0.001.*
+![Generalization gap (validation − train)](generalization_gap_curves.png)
 
-**Generalization diagnosis:** Train and validation **loss/F1 track closely** for both runs (no large train–val divergence). Evidence suggests **plausible generalization at this capacity**, not severe overfitting. The main failure mode is **class imbalance handling**, not runaway train fit: baseline validation recall stays ~0.44 while accuracy looks acceptable.
+![Early convergence — validation F1, epochs 1–5](early_convergence_f1.png)
+
+*Figures 1–4: **Validation** metrics for baseline vs intervention on the same axis. Markers at epochs 1 and 40; legend shows total change over 40 epochs. Figures 5–6: train–validation gap (stays near zero) and the first five epochs where within-run movement actually occurs.*
+
+**Why within-run curves look flat:** Logistic regression on these tabular features **settles by epoch 2** — validation F1 moves only ~**0.004** from epoch 1 to 40 on the baseline run. Plotting train and validation on a zoomed axis makes them **overlap** because they track together (no overfitting), not because the chart is wrong. The **visible** comparison is **baseline vs intervention** (Figures 1–4): intervention validation recall is ~**0.71** vs baseline ~**0.44** at every epoch. Epoch-to-epoch learning is not the story for this linear model; run-to-run class-weighting is.
+
+**Generalization diagnosis:** Train and validation **loss/F1/ROC-AUC stay aligned** for both runs (Figure 5 — gap ≈ 0). Evidence suggests **plausible generalization at this capacity**, not severe overfitting. The main failure mode is **class imbalance handling**, not runaway train fit: baseline validation recall stays ~0.44 while accuracy looks acceptable.
 
 ### Generalization intervention
 

@@ -364,26 +364,60 @@ ROC-AUC flat.</p>
 <h3 id="learning-curves-train-vs-validation">Learning curves (train vs
 validation)</h3>
 <figure>
-<img src="training_loss_curves.png" alt="Training loss" />
-<figcaption aria-hidden="true">Training loss</figcaption>
+<img src="training_loss_curves.png"
+alt="Validation log loss — baseline vs intervention" />
+<figcaption aria-hidden="true">Validation log loss — baseline vs
+intervention</figcaption>
 </figure>
 <figure>
-<img src="validation_loss_curves.png" alt="Validation loss" />
-<figcaption aria-hidden="true">Validation loss</figcaption>
+<img src="validation_f1_curves.png"
+alt="Validation F1 — baseline vs intervention" />
+<figcaption aria-hidden="true">Validation F1 — baseline vs
+intervention</figcaption>
 </figure>
 <figure>
-<img src="validation_f1_curves.png" alt="Validation F1" />
-<figcaption aria-hidden="true">Validation F1</figcaption>
+<img src="validation_recall_curves.png"
+alt="Validation recall — baseline vs intervention" />
+<figcaption aria-hidden="true">Validation recall — baseline vs
+intervention</figcaption>
 </figure>
 <figure>
-<img src="validation_recall_curves.png" alt="Validation recall" />
-<figcaption aria-hidden="true">Validation recall</figcaption>
+<img src="validation_roc_auc_curves.png"
+alt="Validation ROC-AUC — baseline vs intervention" />
+<figcaption aria-hidden="true">Validation ROC-AUC — baseline vs
+intervention</figcaption>
 </figure>
-<p><em>Figures 1–4: Baseline vs balanced-weight intervention; 40 SGD
-epochs, learning rate 0.001.</em></p>
+<figure>
+<img src="generalization_gap_curves.png"
+alt="Generalization gap (validation − train)" />
+<figcaption aria-hidden="true">Generalization gap (validation −
+train)</figcaption>
+</figure>
+<figure>
+<img src="early_convergence_f1.png"
+alt="Early convergence — validation F1, epochs 1–5" />
+<figcaption aria-hidden="true">Early convergence — validation F1, epochs
+1–5</figcaption>
+</figure>
+<p><em>Figures 1–4: <strong>Validation</strong> metrics for baseline vs
+intervention on the same axis. Markers at epochs 1 and 40; legend shows
+total change over 40 epochs. Figures 5–6: train–validation gap (stays
+near zero) and the first five epochs where within-run movement actually
+occurs.</em></p>
+<p><strong>Why within-run curves look flat:</strong> Logistic regression
+on these tabular features <strong>settles by epoch 2</strong> —
+validation F1 moves only ~<strong>0.004</strong> from epoch 1 to 40 on
+the baseline run. Plotting train and validation on a zoomed axis makes
+them <strong>overlap</strong> because they track together (no
+overfitting), not because the chart is wrong. The
+<strong>visible</strong> comparison is <strong>baseline vs
+intervention</strong> (Figures 1–4): intervention validation recall is
+~<strong>0.71</strong> vs baseline ~<strong>0.44</strong> at every
+epoch. Epoch-to-epoch learning is not the story for this linear model;
+run-to-run class-weighting is.</p>
 <p><strong>Generalization diagnosis:</strong> Train and validation
-<strong>loss/F1 track closely</strong> for both runs (no large train–val
-divergence). Evidence suggests <strong>plausible generalization at this
+<strong>loss/F1/ROC-AUC stay aligned</strong> for both runs (Figure 5 —
+gap ≈ 0). Evidence suggests <strong>plausible generalization at this
 capacity</strong>, not severe overfitting. The main failure mode is
 <strong>class imbalance handling</strong>, not runaway train fit:
 baseline validation recall stays ~0.44 while accuracy looks
